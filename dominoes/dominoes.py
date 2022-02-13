@@ -3,7 +3,7 @@ import random
 full_domino_set = [[x, y] for x in range(0, 7) for y in range(x, 7)]
 computer_dominoes = []
 player_dominoes = []
-stock_dominoes = []
+stock_dominos = []
 snake = []
 who_starts = ""
 
@@ -20,8 +20,25 @@ def distribute_dominoes():
     return player_set, computer_set, stock_pieces
 
 
+def print_first_move(who_start, snake_domino):
+    print("======================================================================")
+    print("Stock size:", len(stock_dominos))
+    print("Computer pieces:", len(computer_dominoes))
+    print()
+    print(snake_domino)
+    print()
+    print("Your pieces:")
+    for key, domino in enumerate(player_dominoes):
+        print(f"{key + 1}: {domino}")
+    print()
+    if who_start == "player":
+        print("Status: Computer is about to make a move. Press Enter to continue...")
+    else:
+        print("Status: It's your turn to make a move. Enter your command.")
+
+
 while True:
-    player_dominoes, computer_dominoes, stock_dominoes = distribute_dominoes()
+    player_dominoes, computer_dominoes, stock_dominos = distribute_dominoes()
     if max(computer_dominoes) != max(player_dominoes):
         break
 
@@ -34,8 +51,4 @@ else:
     player_dominoes.remove(snake)
     who_starts = "player"
 
-print(stock_dominoes)
-print(player_dominoes)
-print(computer_dominoes)
-print([snake])
-print("Status:", who_starts)
+print_first_move(who_starts, snake)
